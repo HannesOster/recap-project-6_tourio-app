@@ -11,7 +11,7 @@ export default async function handler(request, response) {
   if (request.method === "POST") {
     try {
       const placeData = request.body;
-      const place = new Product(placeData);
+      const place = new Place(placeData);
       await place.save();
       return response.status(201).json({ status: "Place created." });
     } catch (error) {

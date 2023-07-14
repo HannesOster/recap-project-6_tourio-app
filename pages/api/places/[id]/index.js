@@ -14,4 +14,14 @@ export default async function handler(request, response) {
 
     response.status(200).json(place);
   }
+  if (request.method === "PATCH") {
+    const updatedPlace = request.body;
+    await Place.findByIdAndUpdate(id, updatedPlace);
+    response.status(200).json({ status: "Place successfully updated." });
+    return;
+  }
+  if (request.method === "DELETE") {
+    await Place.findByIdAndDelete(id);
+    response.status(200).json({ status: "Place successfully deleted." });
+  }
 }

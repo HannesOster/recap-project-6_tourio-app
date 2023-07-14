@@ -11,19 +11,15 @@ const StyledBackLink = styled(StyledLink)`
 
 export default function CreatePlacePage() {
   const router = useRouter();
+  const { id } = router.query;
   const { mutate } = useSWR("/api/products");
-  async function addPlace(event) {
-    event.preventDefault();
-
-    const formData = new FormData(event.target);
-    const placeData = Object.fromEntries(formData);
-
-    const response = await fetch("/api/places", {
+  async function addPlace(data) {
+    const response = await fetch(`/api/places`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(productData),
+      body: JSON.stringify(data),
     });
 
     if (!response.ok) {
@@ -32,7 +28,7 @@ export default function CreatePlacePage() {
     }
 
     mutate();
-    event.target.reset();
+    router.push("/");
   }
 
   return (
